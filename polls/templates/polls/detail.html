@@ -1,6 +1,18 @@
-<h1>{{ question.question_text }}</h1>
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }}</li>
-{% endfor %}
-</ul>
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {# CSRF(Cross Site Request Forgeries) 방지 #}
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ question.question_text }}</h1></legend>
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
+        {# 연결된 choice 목록을 `type=radio`로 선택할 수 있음 #}
+        {% for choice in question.choice_set.all %}
+            {# forloop tag, 현재 loop의 index를 출력(1부터 시작)#}
+            {# forloop.counter0는 0부터 시작#}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote" />
+</form>
