@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-from polls.models import Question
+from django_polls.models import Question
 
 class QuestionModelTest(TestCase):
     def test_was_published_recently_with_future_questions(self):

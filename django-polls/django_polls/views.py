@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from polls.models import Question, Choice
+from django_polls.models import Question, Choice
 
 # Generic View를 상속
 class IndexView(generic.ListView):
